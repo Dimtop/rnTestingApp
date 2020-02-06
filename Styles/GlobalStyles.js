@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
       backgroundColor: "azure"
     },
     mainButtonStyle:{
-      backgroundColor: 'transparent',
+      backgroundColor: 'steelblue',
       width:'100%',
       textAlign:'center',
       justifyContent:"center",
@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
       borderStyle:"solid",
       borderColor:"steelblue",
       elevation:0
+    },
+    buttonTextStyle:{
+      color:"azure"
     },
     mainTextStyle:{
       color:"steelblue"
@@ -25,6 +28,12 @@ const styles = StyleSheet.create({
     },
     mainRowStyle:{
       justifyContent:"center"
+    },
+    mainImageStyle:{
+      width:'100%',
+      height:'100%',
+      borderColor:'steelblue',
+      borderWidth:2
     }
   });
 

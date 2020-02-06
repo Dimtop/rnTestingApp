@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import {StyleSheet,Text, Image} from 'react-native';
-import {Container,Button, Content} from 'native-base';
+import {Container} from 'native-base';
+import {Text,Image} from 'react-native';
 import {Grid, Row, Col} from 'react-native-easy-grid';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
 import logo from '../Resources/logo.png';
 import styles from '../Styles/GlobalStyles';
 
@@ -19,7 +17,7 @@ class MainScreen extends Component{
         <Container style={styles.mainContainer}>
           <Grid>
             <Row size={20} style={styles.mainRowStyle}>
-                <Text style={styles.titleTextStyle}>Hubear rocks \m/</Text>  
+                <Text style={styles.titleTextStyle}>Hubear rocks!</Text>  
             </Row>
             <Row size={60} style={styles.mainRowStyle}>
                 <Col size={4}>

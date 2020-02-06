@@ -1,3 +1,4 @@
+/*This is the App component, that is used to host the application*/
 import React, {Component} from 'react';
 import InitialScreen from './Components/InitialScreen';
 import SignUpScreen from './Components/SignUpScreen';
@@ -5,9 +6,6 @@ import LogInScreen from './Components/LogInScreen';
 import MainScreen from './Components/MainScreen';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import { Content } from 'native-base';
-
-
 
 class App extends Component{
 
@@ -16,6 +14,7 @@ class App extends Component{
   }
 
 
+  //Using react-navigation to manage the navigation between the screens.
   render(){
     
     const MainNavigator = createStackNavigator(

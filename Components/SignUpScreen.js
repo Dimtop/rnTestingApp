@@ -1,18 +1,24 @@
+/*This is the SignUpScreen component, that provides
+a form to create a new account.*/
+
 import React, {Component} from 'react';
-import {StyleSheet,Text} from 'react-native';
+import {Text} from 'react-native';
 import {Container,Button} from 'native-base';
 import {Grid, Row, Col} from 'react-native-easy-grid';
 import SignUpField from './SignUpField';
-import { createStackNavigator } from 'react-navigation-stack';
-import { createAppContainer } from 'react-navigation';
 import firestore from '@react-native-firebase/firestore';
-import CryptoJS from 'react-native-crypto-js';
 import styles from '../Styles/GlobalStyles';
 
 class SignUpScreen extends Component{
   constructor(props){
     super(props);
 
+    //The state, consists of the necessary fields to create an
+    //account (fullname, username and password. Could be more, 
+    //but these were choosen due to simplicity).The userAlreadyExists
+    //property, indicates whether a user is already registered to the 
+    //database. The userMessage property is used to pass messages to 
+    //the user.
     this.state = {
       fullname:"",
       username:"",
@@ -21,6 +27,7 @@ class SignUpScreen extends Component{
       userMessage:""
     }
 
+    //Binding the class' methods to 'this'
     this.manageSignUp = this.manageSignUp.bind(this);
     this.manageChildFieldDataChange = this.manageChildFieldDataChange.bind(this);
     this. manageAlreadyExistingUser = this.manageAlreadyExistingUser.bind(this);
@@ -28,13 +35,22 @@ class SignUpScreen extends Component{
     this.resetForm = this.resetForm.bind(this);
   }
 
+
+  /*This is a method that manages the sign up process. It uses the
+  manageAlreadyExistingUser method to pass the appropriate value to the 
+  state, according to whether a user is already registered. Then, 
+  if any field is empty, a message is thrown to the user. When all 
+  the fields have been filled, the existence of the user is checked.
+  If the given username has been previously used for another account,
+  an appropriate message is thrown and the form is reseted. If not, a new 
+  account is created and the user is redirected to the main screen.*/
   manageSignUp(){
     const {navigate} = this.props.navigation;
 
     this. manageAlreadyExistingUser()
       .then( () => {
         if(!this.areAllFieldsFilled()){
-          this.setState({userMessage:"Please fill all fields."});
+          this.setState({userMessage:"Please fill all the fields."});
         }
         else if(this.state.userAlreadyExists){
           this.setState({userMessage:"This username is already taken. Please try a new one."});
@@ -44,7 +60,7 @@ class SignUpScreen extends Component{
           firestore().collection('Users').add({
             fullname:this.state.fullname,
             username:this.state.username,
-            password: CryptoJS.AES.encrypt(this.state.password, "thisisatestngkey")
+            password: this.state.password
           })
           .then( () =>{
             navigate('MainScreen');
@@ -54,19 +70,24 @@ class SignUpScreen extends Component{
       });
     }
   
-
+  /*This method passes a value to the state, that indicates if the username
+  entered, has been previously used. It gets the whole Users collection 
+  and checks each document.*/
   manageAlreadyExistingUser(){
     return firestore().collection('Users').get()
     .then(snapshot =>{
       snapshot.forEach(doc =>{
         if(doc._data.username == this.state.username){
-          console.log(doc._data.username + "    " + this.state.username);
           this.setState({userAlreadyExists:true});
         }
       });
     });
   }
 
+  
+  /*This is a method that is achieve two way data binding,
+  helping to get the data entered into the SignUpField comonents,
+  and patching the to the approptiate state property.*/
   manageChildFieldDataChange(data,fieldName){
     switch(fieldName){
       case "Fullname":
@@ -81,10 +102,12 @@ class SignUpScreen extends Component{
     }
   }
 
+  //This method returns a boolean value, that tells if there are any empty fields.
   areAllFieldsFilled(){
-    return (this.state.fullname == "" || this.state.username == "" || this.state.password == "");
+    return !(this.state.fullname == "" || this.state.username == "" || this.state.password == "");
   }
 
+  //This is a method that clears the state, namely the form's fields.
   resetForm(){
     this.setState({
       fullname:"",
@@ -112,7 +135,7 @@ class SignUpScreen extends Component{
             <Row size={10}>
                 <Col size={1}></Col>
                 <Col size={2}>
-                    <Button style={styles.mainButtonStyle}><Text style={styles.mainTextStyle} onPress={this.manageSignUp}>Create new account</Text></Button>
+                    <Button style={styles.mainButtonStyle}><Text style={styles.buttonTextStyle} onPress={this.manageSignUp}>Create new account</Text></Button>
                 </Col>
                 <Col size={1}></Col>
             </Row>

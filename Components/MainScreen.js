@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Container} from 'native-base';
 import {Text,Image} from 'react-native';
 import {Grid, Row, Col} from 'react-native-easy-grid';
-import logo from '../Resources/logo.png';
 import styles from '../Styles/GlobalStyles';
 
 class MainScreen extends Component{

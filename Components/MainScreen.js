@@ -17,11 +17,11 @@ class MainScreen extends Component{
         <Container style={styles.mainContainer}>
           <Grid>
             <Row size={20} style={styles.mainRowStyle}>
-                <Text style={styles.titleTextStyle}>Hubear rocks!</Text>  
+                <Text style={styles.titleTextStyle}>Reacct rocks!</Text>  
             </Row>
             <Row size={60} style={styles.mainRowStyle}>
                 <Col size={4}>
-                    <Image style={styles.mainImageStyle} source={logo}></Image> 
+                    <Image style={styles.mainImageStyle}></Image> 
                 </Col>
             </Row>
             <Row size={20} style={styles.mainRowStyle}></Row>
